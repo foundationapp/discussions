@@ -1,0 +1,31 @@
+{
+    "name": "foundationapp/discussions",
+    "description": "Discussions is a Simple Laravel Discussions Package",
+    "autoload": {
+        "psr-4": {
+            "FoundationApp\\Discussions\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bobby Iliev",
+            "email": "bobby@bobbyiliev.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FoundationApp\\Discussions\\DiscussionsServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "pestphp/pest-plugin-livewire": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
