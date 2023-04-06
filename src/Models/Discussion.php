@@ -16,7 +16,7 @@ class Discussion extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('discussion.user.namespace'));
+        return $this->belongsTo(config('discussions.user.namespace'));
     }
 
     public function category()
@@ -43,6 +43,6 @@ class Discussion extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('discussion.user.namespace'), 'discussion_user', 'discussion_id', 'user_id');
+        return $this->belongsToMany(config('discussions.user.namespace'), 'discussion_user', 'discussion_id', 'user_id');
     }
 }

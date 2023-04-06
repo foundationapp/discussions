@@ -35,7 +35,10 @@ class DiscussionsServiceProvider extends ServiceProvider
             __DIR__ . '/Lang' => resource_path('lang/vendor/discussions'),
         ], 'discussions_lang');
 
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
+
         Livewire::component('discussions', \FoundationApp\Discussions\Components\Discussions::class);
+        Livewire::component('discussion', \FoundationApp\Discussions\Components\Discussion::class);
     }
 
     /**

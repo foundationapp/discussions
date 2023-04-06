@@ -64,4 +64,7 @@ return [
         'posts' => 10,
         'discussions' => 10,
     ],
+
+    'home_route' => 'discussions',
+    'route_prefix' => 'discussions',
 ];

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('discussions', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('content');
             $table->boolean('pinned')->default(false);
             $table->boolean('locked')->default(false);

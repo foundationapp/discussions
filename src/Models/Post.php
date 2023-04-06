@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $table = 'discussion_posts';
     public $timestamps = true;
-    protected $fillable = ['discussion_id', 'user_id', 'body', 'markdown'];
+    protected $fillable = ['discussion_id', 'user_id', 'content'];
     protected $dates = ['deleted_at'];
 
     public function discussion()
