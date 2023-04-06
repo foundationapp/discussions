@@ -37,7 +37,7 @@ class DiscussionController extends Controller
             return redirect(config('discussions.home_route'));
         }
 
-        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
+        $discussion = Models::discussion()->where('slug', '=', $slug)->with('users')->first();
         if (is_null($discussion)) {
             return redirect(config('discussions.home_route'));
         }

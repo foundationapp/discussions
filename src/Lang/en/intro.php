@@ -33,5 +33,6 @@ return [
 
     'headline'      => 'Welcome to Foundation Discussions!',
     'description'   => 'A simple forum package for your Laravel app.',
+    'please_login'  => 'Please login to create a discussion.',
 
 ];

@@ -4,7 +4,10 @@ return [
     'words' => [
         'cancel'  => 'Cancel',
         'delete'  => 'Delete',
+        'save'    => 'Save',
         'edit'    => 'Edit',
+        'answer'  => 'Answer',
+        'create'  => 'Create',
         'yes'     => 'Yes',
         'no'      => 'No',
         'minutes' => '1 minute| :count minutes',
@@ -13,7 +16,6 @@ return [
     'discussion' => [
         'new'          => 'New ' . trans('discussions::intro.titles.discussion'),
         'all'          => 'All ' . trans('discussions::intro.titles.discussion'),
-        'create'       => 'Create ' . trans('discussions::intro.titles.discussion'),
         'posted_by'    => 'Posted by',
         'head_details' => 'Posted in Category',
 
@@ -28,13 +30,16 @@ return [
 
     'editor' => [
         'title'               => 'Title of ' . trans('discussions::intro.titles.discussion'),
+        'content'             => 'Content of ' . trans('discussions::intro.titles.discussion'),
+        'reply'               => 'Write a Reply',
         'select'              => 'Select a Category',
         'tinymce_placeholder' => 'Type Your ' . trans('discussions::intro.titles.discussion') . ' Here...',
         'select_color_text'   => 'Select a Color for this ' . trans('discussions::intro.titles.discussion') . ' (optional)',
     ],
 
     'email' => [
-        'notify' => 'Notify me when someone replies',
+        'notify'       => 'Notify me when someone replies',
+        'dont_notify' => 'Don\'t notify me when someone replies',
     ],
 
     'auth' => 'Please <a href="/:home/login">login</a>

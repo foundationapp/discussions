@@ -27,5 +27,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "require": {
+        "livewire/livewire": "^2.12"
     }
 }

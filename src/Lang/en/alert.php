@@ -9,6 +9,8 @@ return [
             'destroy_post'            => 'Successfully deleted the response and ' . mb_strtolower(trans('discussions::intro.titles.discussion')) . '.',
             'destroy_from_discussion' => 'Successfully deleted the response from the ' . mb_strtolower(trans('discussions::intro.titles.discussion')) . '.',
             'created_discussion'      => 'Successfully created a new ' . mb_strtolower(trans('discussions::intro.titles.discussion')) . '.',
+            'unsubscribed_from_discussion' => 'You will no longer recieve notifications for this ' . mb_strtolower(trans('discussions::intro.titles.discussion')) . '.',
+            'subscribed_to_discussion' => 'You will now receive notifications for this ' . mb_strtolower(trans('discussions::intro.titles.discussion')) . '.',
         ],
     ],
     'info' => [

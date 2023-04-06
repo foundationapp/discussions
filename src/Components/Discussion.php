@@ -20,6 +20,14 @@ class Discussion extends Component
     public $editingDiscussionContent;
     public $loadMore = 5;
 
+    protected function getListeners()
+    {
+        return [
+            'toggleNotification' => 'toggleNotification',
+        ];
+    }
+
+
     public function mount($discussion)
     {
         $this->discussion = $discussion;
@@ -42,25 +50,29 @@ class Discussion extends Component
             'user_id' => auth()->user()->id,
         ]);
 
+        if ($this->discussion->users->contains(auth()->user()->id) == false) {
+            $this->discussion->users()->attach(auth()->user()->id);
+        }
+
         $this->comment = '';
 
-        session()->flash('message', 'Comment created successfully.');
+        session()->flash('message', trans('discussions::alert.success.reason.submitted_to_post'));
     }
 
     public function delete($id)
     {
         if (auth()->user()->id != Models::post()->find($id)->user_id) {
-            session()->flash('message', 'You are not the owner of this comment.');
+            session()->flash('message', trans('discussions::alert.danger.reason.destroy_post'));
             return;
         }
         Models::post()->find($id)->delete();
-        session()->flash('message', 'Comment deleted successfully.');
+        session()->flash('message', trans('discussions::alert.success.reason.destroy_from_discussion'));
     }
 
     public function edit($id)
     {
         if (auth()->user()->id != Models::post()->find($id)->user_id) {
-            session()->flash('message', 'You are not the owner of this comment.');
+            session()->flash('message', trans('discussions::alert.danger.reason.update_post'));
             return;
         }
         $this->editingPostId = $id;
@@ -76,7 +88,7 @@ class Discussion extends Component
     public function update($id)
     {
         if (auth()->user()->id != Models::post()->find($id)->user_id) {
-            session()->flash('message', 'You are not the owner of this comment.');
+            session()->flash('message', trans('discussions::alert.danger.reason.update_post'));
             return;
         }
 
@@ -85,24 +97,25 @@ class Discussion extends Component
             'content' => $this->editedContent,
         ]);
         $this->editingPostId = null;
-        return session()->flash('message', 'Comment updated successfully.');
+        session()->flash('message', trans('discussions::alert.success.reason.updated_post'));
+        return;
     }
 
     public function deleteDiscussion()
     {
         if (auth()->user()->id != $this->discussion->user_id) {
-            session()->flash('message', 'You are not the owner of this discussion.');
+            session()->flash('message', trans('discussions::alert.danger.reason.destroy_post'));
             return;
         }
         $this->discussion->delete();
-        session()->flash('message', 'Discussion deleted successfully.');
+        session()->flash('message', trans('discussions::alert.success.reason.destroy_post'));
         return redirect()->route('discussions.index');
     }
 
     public function editDiscussion()
     {
         if (auth()->user()->id != $this->discussion->user_id) {
-            session()->flash('message', 'You are not the owner of this discussion.');
+            session()->flash('message', trans('discussions::alert.danger.reason.update_post'));
             return;
         }
         $this->editingDiscussion = true;
@@ -113,7 +126,7 @@ class Discussion extends Component
     public function updateDiscussion()
     {
         if (auth()->user()->id != $this->discussion->user_id) {
-            session()->flash('message', 'You are not the owner of this discussion.');
+            session()->flash('message', trans('discussions::alert.danger.reason.update_post'));
             return;
         }
         $this->discussion->title = $this->editingDiscussionTitle;
@@ -126,6 +139,18 @@ class Discussion extends Component
     public function cancelEditingDiscussion()
     {
         $this->editingDiscussion = false;
+    }
+
+    public function toggleNotification()
+    {
+        if ($this->discussion->users->contains(auth()->user()->id)) {
+            $this->discussion->users()->detach(auth()->user()->id);
+            session()->flash('message', trans('discussions::alert.success.reason.unsubscribed_from_discussion'));
+            return;
+        }
+        $this->discussion->users()->attach(auth()->user()->id);
+        session()->flash('message', trans('discussions::alert.success.reason.subscribed_to_discussion'));
+        return;
     }
 
     public function render()

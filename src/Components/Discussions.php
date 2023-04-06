@@ -18,12 +18,6 @@ class Discussions extends Component
         $this->loadMore = $this->loadMore + 5;
     }
 
-    public function render()
-    {
-        $discussions = Discussion::orderBy('created_at', 'desc')->paginate($this->loadMore);
-        return view('discussions::livewire.discussions', ['discussions' => $discussions]);
-    }
-
     public function slugValidation($slug)
     {
         $slug = Str::slug($slug);
@@ -55,5 +49,11 @@ class Discussions extends Component
         $this->content = '';
 
         session()->flash('message', 'Discussion created successfully.');
+    }
+
+    public function render()
+    {
+        $discussions = Discussion::orderBy('created_at', 'desc')->with('users')->paginate($this->loadMore);
+        return view('discussions::livewire.discussions', ['discussions' => $discussions]);
     }
 }
