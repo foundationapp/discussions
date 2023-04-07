@@ -37,8 +37,9 @@ class DiscussionsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
 
-        Livewire::component('discussions', \FoundationApp\Discussions\Components\Discussions::class);
         Livewire::component('discussion', \FoundationApp\Discussions\Components\Discussion::class);
+        Livewire::component('discussions', \FoundationApp\Discussions\Components\Discussions::class);
+        Livewire::component('posts', \FoundationApp\Discussions\Components\Posts::class);
     }
 
     /**

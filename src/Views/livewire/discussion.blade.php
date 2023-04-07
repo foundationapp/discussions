@@ -1,11 +1,11 @@
 <div>
     <div class="space-y-4">
-        @if ($editingDiscussion)
-            <input type="text" class="w-full p-2 mb-2 text-gray-700 border rounded-lg focus:outline-none" wire:model="editingDiscussionTitle">
-            <textarea class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="3" wire:model="editingDiscussionContent"></textarea>
+        @if ($editing)
+            <input type="text" class="w-full p-2 mb-2 text-gray-700 border rounded-lg focus:outline-none" wire:model="editingTitle">
+            <textarea class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="3" wire:model="editingContent"></textarea>
             <div class="flex justify-between mt-2">
                 <button wire:click="updateDiscussion" class="px-4 py-2 bg-green-500 text-white rounded">@lang('discussions::messages.words.save')</button>
-                <button wire:click="cancelEditingDiscussion" class="px-4 py-2 bg-gray-300 text-white rounded">@lang('discussions::messages.words.cancel')</button>
+                <button wire:click="cancelEditing" class="px-4 py-2 bg-gray-300 text-white rounded">@lang('discussions::messages.words.cancel')</button>
             </div>
         @else
             <h1 class="text-3xl font-semibold mb-6">{{ $discussion->title }}</h1>
@@ -65,39 +65,5 @@
         @endauth
     </div>
 
-    <div class="space-y-4 mb-4">
-        @foreach ($posts as $post)
-            <div class="p-4 bg-white shadow rounded" wire:key="{{ $post->id }}">
-                @auth
-                    @if ($editingPostId === $post->id)
-                        <textarea wire:model="editedContent" class="w-full p-2 bg-gray-100 rounded"></textarea>
-                        <div class="flex justify-between mt-2">
-                            <button wire:click="update({{ $post->id }})" class="px-4 py-2 bg-blue-500 text-white rounded">@lang('discussions::messages.words.save')</button>
-                            <button wire:click="cancelEdit()" class="px-4 py-2 bg-gray-300 text-white rounded">@lang('discussions::messages.words.cancel')</button>
-                        </div>
-                    @else
-                        <p class="text-gray-500 mb-2">
-                            {!! Str::markdown($post->content) !!}
-                        </p>
-                        <p class="text-gray-500">
-                            Posted by {{ $post->user->name }}
-                        </p>
-                        @if (auth()->user()->id == $post->user_id)
-                            <div class="flex space-x-2 mt-2">
-                                <button wire:click="edit({{ $post->id }})" class="px-4 py-2 bg-yellow-500 text-white rounded">@lang('discussions::messages.words.edit')</button>
-                                <button wire:click="delete({{ $post->id }})" class="px-4 py-2 bg-red-500 text-white rounded">@lang('discussions::messages.words.delete')</button>
-                            </div>
-                        @endif
-                    @endif
-                @else
-                    <p class="text-gray-500 mb-2">
-                        {!! Str::markdown($post->content) !!}
-                    </p>
-                    <p class="text-gray-500">
-                        @lang('discussions::messages.discussion.posted_by') {{ $post->user->name }}
-                    </p>
-                @endauth
-            </div>
-        @endforeach
-    </div>    
+    @livewire('posts', ['discussion' => $discussion], key($discussion->id))
 </div>
