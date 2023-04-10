@@ -54,6 +54,10 @@ class Discussions extends Component
     public function render()
     {
         $discussions = Discussion::orderBy('created_at', 'desc')->with('users')->paginate($this->loadMore);
-        return view('discussions::livewire.discussions', ['discussions' => $discussions]);
+        $view = view('discussions::livewire.discussions', ['discussions' => $discussions]);
+
+        $view->extends('layouts.app');
+
+        return $view;
     }
 }

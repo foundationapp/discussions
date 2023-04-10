@@ -11,7 +11,7 @@ class Discussion extends Component
     public $title;
     public $slug;
     public $comment;
-    public $discussion;
+    public $discussion_slug;
     public $category_id;
     public $editing = false;
     public $editingTitle;
@@ -25,9 +25,13 @@ class Discussion extends Component
     }
 
 
-    public function mount($discussion)
+    public function mount($discussion_slug)
     {
-        $this->discussion = $discussion;
+        $this->discussion_slug = $discussion_slug;
+    }
+
+    public function getDiscussionProperty(){
+        return Models::discussion()->where('slug', $this->discussion_slug)->first();
     }
 
     public function answer()
@@ -107,6 +111,10 @@ class Discussion extends Component
 
     public function render()
     {
-        return view('discussions::livewire.discussion');
+        $view = view('discussions::livewire.discussion');
+        
+        $view->extends('layouts.app');
+
+        return $view;
     }
 }
