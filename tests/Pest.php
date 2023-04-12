@@ -44,11 +44,11 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function user()
+function user($name)
 {
     $user = new FoundationApp\Discussions\Models\User();
-    $user->name = 'Test';
-    $user->email = 'test@test.com';
+    $user->name = $name;
+    $user->email = $name . '@test.com';
     $user->password = 'test';
     $user->save();
     return $user;
