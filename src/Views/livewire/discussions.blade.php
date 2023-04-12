@@ -14,9 +14,26 @@
                 Category<svg class="w-4 h-4 translate-x-0.5" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-triangle-down"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg>
             </button-category>
 
-            <button-category class="flex-shrink-0 relative flex items-center justify-between h-full px-3.5 overflow-hidden bg-neutral-50 hover:bg-neutral-100 border border-gray-300 cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
-                Sort By<svg class="w-4 h-4 translate-x-0.5" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-triangle-down"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg>
-            </button-category>
+            <div x-data="{ open: false }" class="relative">
+                <button-category @click="open = !open" class="flex-shrink-0 flex items-center justify-between h-full px-3.5 overflow-hidden bg-neutral-50 hover:bg-neutral-100 border border-gray-300 cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
+                    Sort<svg class="w-4 h-4 translate-x-0.5" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-triangle-down"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg>
+                </button-category>
+                <div x-show="open"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-95"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-95"
+                    @click.away="open = false"
+                    x-cloak
+                    class="absolute z-10 w-56 mt-2 origin-top-right rounded-md shadow-lg">
+                    <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                        <a href="#" wire:click.prevent="updateSortOrder('desc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Newest</a>
+                        <a href="#" wire:click.prevent="updateSortOrder('asc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Oldest</a>
+                    </div>
+                </div>
+            </div>
 
             <button-category onclick="window.dispatchEvent(new CustomEvent('discussion-new-open'))" class="flex-shrink-0 relative flex items-center justify-between h-full px-3.5 overflow-hidden bg-neutral-900 hover:bg-neutral-950 border border-neutral-700 text-white cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
                 New {{ trans('discussions::intro.titles.discussion') }}            

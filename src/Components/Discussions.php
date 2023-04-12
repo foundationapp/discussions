@@ -12,6 +12,7 @@ class Discussions extends Component
     public $title;
     public $content;
     public $search;
+    public $sortOrder = 'desc';
     public $category_id;
     public $loadMore = 5;
 
@@ -73,13 +74,22 @@ class Discussions extends Component
         }
     }
 
+    public function updateSortOrder($order)
+    {
+        if ($order != 'asc' && $order != 'desc') {
+            return;
+        }
+        $this->sortOrder = $order;
+    }
+
     public function render()
     {
         $discussions = Discussion::where('title', 'like', '%' . $this->search . '%')
             ->orWhere('content', 'like', '%' . $this->search . '%')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', $this->sortOrder)
             ->with('users')
             ->paginate($this->loadMore);
+
         $view = view('discussions::livewire.discussions', ['discussions' => $discussions]);
 
         $view->extends('layouts.app');
