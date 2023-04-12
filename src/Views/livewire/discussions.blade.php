@@ -7,7 +7,7 @@
                 <div class="absolute left-0 flex items-center justify-center h-full pl-2.5 pr-1">
                     <svg class="w-4 h-4 text-gray-400 -translate-y-px fill-current" viewBox="0 0 16 16" version="1.1" data-view-component="true"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path></svg>
                 </div>
-                <input name="search" type="text" placeholder="Search all discussions" class="flex focus:border-neutral-900 focus:outline-none focus:ring-neutral-900 items-center w-full h-full pl-8 pr-2 text-sm border border-gray-300 {{ config("discussions.styles.rounded") }}" />
+                <input wire:model="search" type="text" placeholder="Search all discussions" class="flex focus:border-neutral-900 focus:outline-none focus:ring-neutral-900 items-center w-full h-full pl-8 pr-2 text-sm border border-gray-300 {{ config("discussions.styles.rounded") }}" />
             </search-discussions>
 
             <button-category class="flex-shrink-0 relative flex items-center justify-between h-full px-3.5 overflow-hidden bg-neutral-50 hover:bg-neutral-100 border border-gray-300 cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
@@ -42,6 +42,13 @@
                     </p>
                 </div>
             @endforeach
+            @if ($discussions->hasMorePages())
+                <div class="flex justify-center">
+                    <button wire:click="loadMore" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                        @lang('discussions::messages.discussion.load_more')
+                    </button>
+                </div>
+            @endif
         </div>
     </div>
 

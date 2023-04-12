@@ -10,6 +10,7 @@ class Discussions extends Component
 {
     public $title;
     public $content;
+    public $search;
     public $category_id;
     public $loadMore = 5;
 
@@ -23,7 +24,7 @@ class Discussions extends Component
         $slug = Str::slug($slug);
         $count = Discussion::where('slug', $slug)->count();
         if ($count > 0) {
-            $slug = $slug . '-' . $count;
+            $slug = $slug . '-' . time();
         }
         return $slug;
     }
@@ -53,7 +54,11 @@ class Discussions extends Component
 
     public function render()
     {
-        $discussions = Discussion::orderBy('created_at', 'desc')->with('users')->paginate($this->loadMore);
+        $discussions = Discussion::where('title', 'like', '%' . $this->search . '%')
+            ->orWhere('content', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc')
+            ->with('users')
+            ->paginate($this->loadMore);
         $view = view('discussions::livewire.discussions', ['discussions' => $discussions]);
 
         $view->extends('layouts.app');

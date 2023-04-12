@@ -27,7 +27,6 @@
                                 <span class="absolute right-0 hidden mt-1 ml-2 text-xs font-medium leading-tight text-white yes dark:text-dark-100">YES</span>
                                 <span class="absolute right-0 mt-1 mr-2 text-xs font-medium leading-tight text-gray-200 no">no</span>
                             </div>
-                            <!-- dot -->
                             <div class="absolute inset-0 left-0 w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow toggle__dot dark:bg-dark-800"></div>
                         </div>
 

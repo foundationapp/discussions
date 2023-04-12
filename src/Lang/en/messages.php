@@ -18,6 +18,7 @@ return [
         'all'          => 'All ' . trans('discussions::intro.titles.discussion'),
         'posted_by'    => 'Posted by',
         'head_details' => 'Posted in Category',
+        'load_more'    => 'Load More',
 
     ],
     'response' => [
