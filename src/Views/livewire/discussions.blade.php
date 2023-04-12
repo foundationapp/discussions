@@ -27,7 +27,11 @@
                 @lang('discussions::intro.please_login')
             </div>
         @endauth
-
+        @if (session()->has('message'))
+            <div class="p-4 mb-4 text-white bg-green-500 {{ config("discussions.styles.rounded") }}">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="space-y-5">
             @foreach ($discussions as $discussion)
                 <div class="bg-white hover:bg-gray-50 p-5 {{ config("discussions.styles.rounded") }}" wire:key="{{ $discussion->id }}">
@@ -71,12 +75,7 @@
                     <div @click="open = false" class="block p-3 cursor-pointer">&times;</div>
                 </div>
             </div>
-            
-            @if (session()->has('message'))
-                <div class="p-4 mb-4 text-white bg-green-500 {{ config("discussions.styles.rounded") }}">
-                    {{ session('message') }}
-                </div>
-            @endif
+
         @endauth
 
 </div>

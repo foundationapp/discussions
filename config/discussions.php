@@ -21,6 +21,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | A Few security measures to prevent spam on your forum
+    |--------------------------------------------------------------------------
+    |
+    | Here are a few configurations that you can add to your forum to prevent
+    | possible spammers or bots.
+    |
+    |   *limit_time_between_posts*: Stop user from being able to spam by making
+    |       them wait a specified time before being able to post again.
+    |
+    |   *time_between_posts*: In minutes, the time a user must wait before
+    |       being allowed to add more content. Only valid if above value is
+    |       set to true.
+    |
+    */
+
+    'security' => [
+        'limit_time_between_posts' => true, // true or false
+        'time_between_posts'       => 1, // In minutes
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Editor
     |--------------------------------------------------------------------------
     |

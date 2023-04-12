@@ -2,6 +2,7 @@
 
 namespace FoundationApp\Discussions\Components;
 
+use FoundationApp\Discussions\Events\NewDiscussionCreated;
 use FoundationApp\Discussions\Models\Discussion;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -36,9 +37,13 @@ class Discussions extends Component
             'content' => 'required|min:6',
         ]);
 
+        if ($this->checkTimeBetweenDiscussion() === false) {
+            return;
+        }
+
         $slug = $this->slugValidation($this->title);
 
-        Discussion::create([
+        $discussion = Discussion::create([
             'title' => $this->title,
             'category_id' => $this->category_id,
             'content' => $this->content,
@@ -49,7 +54,23 @@ class Discussions extends Component
         $this->title = '';
         $this->content = '';
 
+        event(new NewDiscussionCreated($discussion));
+
         session()->flash('message', 'Discussion created successfully.');
+    }
+
+    public function checkTimeBetweenDiscussion()
+    {
+        if (config('discussions.security.limit_time_between_posts') === true) {
+            $lastDiscussion = Discussion::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            if ($lastDiscussion != null) {
+                $timeBetween = now()->diffInMinutes($lastDiscussion->created_at);
+                if ($timeBetween < config('discussions.security.time_between_posts')) {
+                    session()->flash('message', trans('discussions::alert.danger.reason.prevent_spam'));
+                    return false;
+                }
+            }
+        }
     }
 
     public function render()

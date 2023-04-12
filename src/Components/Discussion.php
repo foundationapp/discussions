@@ -2,6 +2,7 @@
 
 namespace FoundationApp\Discussions\Components;
 
+use FoundationApp\Discussions\Events\NewDiscussionPostCreated;
 use FoundationApp\Discussions\Models\Models;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -30,7 +31,8 @@ class Discussion extends Component
         $this->discussion_slug = $discussion_slug;
     }
 
-    public function getDiscussionProperty(){
+    public function getDiscussionProperty()
+    {
         return Models::discussion()->where('slug', $this->discussion_slug)->first();
     }
 
@@ -40,11 +42,17 @@ class Discussion extends Component
             'comment' => 'required|min:6',
         ]);
 
-        Models::post()->create([
+        if ($this->checkTimeBetweenPosts() === false) {
+            return;
+        }
+
+        $post = Models::post()->create([
             'content' => $this->comment,
             'discussion_id' => $this->discussion->id,
             'user_id' => auth()->user()->id,
         ]);
+
+        event(new NewDiscussionPostCreated($post));
 
         if ($this->discussion->users->contains(auth()->user()->id) == false) {
             $this->discussion->users()->attach(auth()->user()->id);
@@ -55,6 +63,20 @@ class Discussion extends Component
         $this->emit('postAdded');
 
         session()->flash('message', trans('discussions::alert.success.reason.submitted_to_post'));
+    }
+
+    public function checkTimeBetweenPosts()
+    {
+        if (config('discussions.security.limit_time_between_posts') === true) {
+            $lastPost = Models::post()->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            if ($lastPost != null) {
+                $timeBetween = now()->diffInMinutes($lastPost->created_at);
+                if ($timeBetween < config('discussions.security.time_between_posts')) {
+                    session()->flash('message', trans('discussions::alert.danger.reason.prevent_spam'));
+                    return false;
+                }
+            }
+        }
     }
 
     public function deleteDiscussion()
@@ -112,7 +134,7 @@ class Discussion extends Component
     public function render()
     {
         $view = view('discussions::livewire.discussion');
-        
+
         $view->extends('layouts.app');
 
         return $view;
