@@ -51,16 +51,22 @@
         @endif
         <div class="space-y-5">
             @foreach ($discussions as $discussion)
-                <div class="bg-white hover:bg-gray-50 p-5 {{ config("discussions.styles.rounded") }}" wire:key="{{ $discussion->id }}">
-                    <p class="mb-2 text-xl font-semibold">
-                        <a href="{{ route('discussion', $discussion->slug) }}">{{ $discussion->title }}</a>
-                    </p>
-                    <p class="mb-2 text-gray-500">
-                        {{ Str::limit($discussion->content, 50) }}
-                    </p>
-                    <p class="text-gray-500">
-                        @lang('discussions::messages.discussion.posted_by') {{ $discussion->user->name }}
-                    </p>
+                <div class="bg-white hover:bg-gray-50 p-5 flex items-start {{ config("discussions.styles.rounded") }}" wire:key="{{ $discussion->id }}">
+
+                    <avatar-placeholder class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-3 text-xl font-bold text-white rounded-full select-none" style="background:#<?= FoundationApp\Discussions\Helpers\Avatar::stringToColorCode($discussion->user->name) ?>">
+                        {{ FoundationApp\Discussions\Helpers\Avatar::getInitials($discussion->user->name) }}
+                    </avatar-placeholder>
+                    <div class="relative w-full">
+                        <p class="mb-2 text-xl font-semibold">
+                            <a href="{{ route('discussion', $discussion->slug) }}">{{ $discussion->title }}</a>
+                        </p>
+                        <p class="mb-2 text-gray-500">
+                            {{ Str::limit($discussion->content, 50) }}
+                        </p>
+                        <p class="text-gray-500">
+                            @lang('discussions::messages.discussion.posted_by') {{ $discussion->user->name }}
+                        </p>
+                    </div>
                 </div>
             @endforeach
             @if ($discussions->hasMorePages())

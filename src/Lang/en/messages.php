@@ -4,6 +4,7 @@ return [
     'words' => [
         'cancel'  => 'Cancel',
         'delete'  => 'Delete',
+        'report'  => 'Report',
         'save'    => 'Save',
         'edit'    => 'Edit',
         'answer'  => 'Answer',
