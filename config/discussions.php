@@ -18,6 +18,7 @@ return [
 
     'home_route' => 'discussions',
     'route_prefix' => 'discussions',
+    'route_prefix_post' => 'discussion',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,6 +44,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Styles for discussions
+    |--------------------------------------------------------------------------
+    |
+    | This is a minimal config to update a few of the sytles in the discussions
+    |
+    */
+
+    'styles' => [
+        'rounded' => 'rounded-md',
+        'container_width' => 'max-w-5xl',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Editor
     |--------------------------------------------------------------------------
     |
@@ -53,4 +68,45 @@ return [
     */
 
     'editor' => 'textarea',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Categories
+    |--------------------------------------------------------------------------
+    |
+    | Here you will define the categories that are available for discussions.
+    | If you do not wish to include categories in your discussions, you can
+    | set the 'show_categories' value to false.
+    |
+    */
+
+    'show_categories' => true,
+
+    'categories' => [
+        'announcements' => [
+            'icon' => '📣',
+            'title' => 'Announcements',
+            'description' => 'Important announcements from the administrators.',
+        ],
+        'general' => [
+            'icon' => '💬',
+            'title' => 'General Discussion',
+            'description' => 'Chat about anything and everything here',
+        ],
+        'ideas' => [
+            'icon' => '💡',
+            'title' => 'Ideas',
+            'description' => 'Share ideas for new features',
+        ],
+        'qa' => [
+            'icon' => '🙏',
+            'title' => 'Q&A',
+            'description' => 'Ask the community for help',
+        ],
+        'show-and-tell' => [
+            'icon' => '🙌',
+            'title' => 'Show and tell',
+            'description' => 'Show off something you\'ve made',
+        ]
+    ],
 ];

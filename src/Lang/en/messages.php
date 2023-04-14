@@ -9,6 +9,7 @@ return [
         'edit'    => 'Edit',
         'answer'  => 'Answer',
         'create'  => 'Create',
+        'submit'  => 'Submit',
         'yes'     => 'Yes',
         'no'      => 'No',
         'minutes' => '1 minute| :count minutes',
