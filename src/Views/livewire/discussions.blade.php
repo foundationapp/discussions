@@ -1,6 +1,6 @@
-<div class="relative">
-    <div class="space-y-5">
-        <h1 class="text-4xl font-bold tracking-tighter">Discussions</h1>
+<div class="relative mx-auto {{ config('discussions.styles.container_max_width') }}">
+    <div class="space-y-6">
+        <h1 class="text-3xl font-bold tracking-tighter">Discussions</h1>
 
         <top-bar-discussions class="flex justify-between w-full space-x-3 h-9">
             <search-discussions class="relative flex items-center w-full h-full">
@@ -27,78 +27,95 @@
                     x-transition:leave-end="opacity-0 transform scale-95"
                     @click.away="open = false"
                     x-cloak
-                    class="absolute z-10 w-56 mt-2 origin-top-right rounded-md shadow-lg">
+                    class="absolute z-10 w-56 mt-2 origin-top-left rounded-md shadow-lg">
                     <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-                        <a href="#" wire:click.prevent="updateSortOrder('desc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Newest</a>
-                        <a href="#" wire:click.prevent="updateSortOrder('asc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Oldest</a>
+                        <button @click="open=false" wire:click.prevent="updateSortOrder('desc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Newest</button>
+                        <button @click="open=false" wire:click.prevent="updateSortOrder('asc')" class="block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 hover:text-gray-900 dark-mode:hover:text-gray-200">Oldest</button>
                     </div>
                 </div>
             </div>
 
-            <button-category onclick="window.dispatchEvent(new CustomEvent('discussion-new-open'))" class="flex-shrink-0 relative flex items-center justify-between h-full px-3.5 overflow-hidden bg-neutral-900 hover:bg-neutral-950 border border-neutral-700 text-white cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
+            <button-category onclick="window.dispatchEvent(new CustomEvent('discussion-new-open'))" class="flex-shrink-0 relative flex items-center justify-between h-full px-3.5 overflow-hidden bg-green-600 border border-green-500 text-white cursor-pointer text-sm font-medium {{ config("discussions.styles.rounded") }}">
                 New {{ trans('discussions::intro.titles.discussion') }}            
             </button-category>
         </top-bar-discussions>
-        @guest
-            <div class="p-4 mb-4 text-neutral-700 bg-gray-100 {{ config("discussions.styles.rounded") }}">
-                @lang('discussions::intro.please_login')
-            </div>
-        @endauth
+        @include('discussions::partials.guest-auth-message')
         @if (session()->has('message'))
             <div class="p-4 mb-4 text-white bg-green-500 {{ config("discussions.styles.rounded") }}">
                 {{ session('message') }}
             </div>
         @endif
-        <div class="space-y-5">
-            @foreach ($discussions as $discussion)
-                <div class="bg-white hover:bg-gray-50 p-5 flex items-start {{ config("discussions.styles.rounded") }}" wire:key="{{ $discussion->id }}">
-
-                    <avatar-placeholder class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-3 text-xl font-bold text-white rounded-full select-none" style="background:#<?= FoundationApp\Discussions\Helpers\Avatar::stringToColorCode($discussion->user->name) ?>">
-                        {{ FoundationApp\Discussions\Helpers\Avatar::getInitials($discussion->user->name) }}
-                    </avatar-placeholder>
-                    <div class="relative w-full">
-                        <p class="mb-2 text-xl font-semibold">
-                            <a href="{{ route('discussion', $discussion->slug) }}">{{ $discussion->title }}</a>
-                        </p>
-                        <p class="mb-2 text-gray-500">
-                            {{ Str::limit($discussion->content, 50) }}
-                        </p>
-                        <p class="text-gray-500">
-                            @lang('discussions::messages.discussion.posted_by') {{ $discussion->user->name }}
-                        </p>
-                    </div>
-                </div>
-            @endforeach
-            @if ($discussions->hasMorePages())
-                <div class="flex justify-center">
-                    <button wire:click="loadMore" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                        @lang('discussions::messages.discussion.load_more')
-                    </button>
-                </div>
+        <div class="relative flex">
+            @if(config('discussions.show_categories'))
+                @include('discussions::partials.categories')
             @endif
+            <div class="w-full space-y-2">
+                @foreach ($discussions as $discussion)
+                    @if(!$loop->first)
+                        <div class="w-full h-px bg-gray-200"></div>
+                    @endif
+                    <div class="py-2 flex items-start @if(config("discussions.styles.rounded") == 'rounded-full'){{ 'rounded-xl' }}@else{{ config("discussions.styles.rounded") }}@endif" wire:key="{{ $discussion->id }}">
+                        @include('discussions::partials.discussion-avatar', ['user' => $discussion->user])
+                        <div class="relative flex flex-col justify-start w-full ml-3">
+                            <a href="{{ route('discussion', $discussion->slug) }}" class="pt-px mb-1 font-semibold leading-tight tracking-tight text-gray-800 hover:text-blue-500">{{ $discussion->title }}</a>
+                            <p class="text-xs leading-none text-gray-500">
+                                @lang('discussions::messages.discussion.posted_by') {{ $discussion->user->name }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                @if ($discussions->hasMorePages())
+                    <div class="flex justify-center">
+                        <button wire:click="loadMore" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                            @lang('discussions::messages.discussion.load_more')
+                        </button>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 
     @auth
-            <div x-data="{ open: false }"
-                x-show="open"
+        <div x-data="{ open: false }"
+            x-show="open"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="translate-y-full"
                 x-transition:enter-end="translate-y-0"
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="translate-y-0"
                 x-transition:leave-end="translate-y-full"
-                @discussion-new-open.window="open = true"
-                class="fixed bottom-0 w-full max-w-3xl p-10 bg-white border border-b-0 border-gray-300 rounded-t" x-cloak>
-                <input wire:model="title" type="text" placeholder="@lang('discussions::messages.editor.title')" class="w-full px-3 py-2 border {{ config("discussions.styles.rounded") }}">
-                <textarea wire:model="content" placeholder="@lang('discussions::messages.editor.content')" class="w-full px-3 py-2 border {{ config("discussions.styles.rounded") }}"></textarea>
-                <button wire:click="createDiscussion" class="px-4 py-2 mt-2 text-white bg-blue-500 {{ config("discussions.styles.rounded") }}">@lang('discussions::messages.words.create')</button>
-
+                @discussion-new-open.window="open = true" 
+                class="fixed bottom-0 flex items-center justify-end w-full {{ config('discussions.styles.container_max_width') }} mx-auto">
+            <div class="flex-shrink-0 mr-4 bg-transparent {{ config('discussions.styles.sidebar_width') }}"></div>
+            <div 
+                
+                class="relative bottom-0 w-full bg-white border border-b-0 border-gray-300 rounded-t-xl shadow-3xl" x-cloak
+                >
+                <div class="flex items-start p-5 space-x-3">
+                    @include('discussions::partials.discussion-avatar', ['user' => auth()->user(), 'size' => 'lg'])
+                    <div class="relative flex flex-col w-full">
+                        <div class="pr-10">
+                            <input wire:model="title" type="text" placeholder="@lang('discussions::messages.editor.title')" class="w-full py-2 pr-3 font-medium border-0 focus:ring-0 focus:outline-none">
+                        </div>
+                        <textarea wire:model="content" placeholder="@lang('discussions::messages.editor.content')" class="w-full h-32 py-2 pr-3 text-sm border-0 focus:ring-0 focus:outline-none"></textarea>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between px-5 pt-4 pb-3 text-xs font-semibold border-t border-gray-200 hover:text-gray-700">
+                    <button class="flex items-center px-4 py-2 space-x-1 font-medium text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200/60">
+                        <span>Select a Category</span>
+                        <svg class="w-4 h-4 rotate-180 translate-y-px" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg>
+                    </button>
+                    <div class="relative flex items-center space-x-2">
+                        <button @click="open=false" class="px-4 py-2 text-gray-600 hover:text-gray-700 bg-gray-200 {{ config("discussions.styles.rounded") }}">@lang('discussions::messages.words.cancel')</button>
+                        <button wire:click="createDiscussion" class="px-4 py-2 text-white bg-green-600 {{ config("discussions.styles.rounded") }}">@lang('discussions::messages.words.submit')</button>
+                    </div>
+                </div>
+                
                 <div class="absolute top-0 right-0 pr-1">
                     <div @click="open = false" class="block p-3 cursor-pointer">&times;</div>
                 </div>
             </div>
-
-        @endauth
+        </div>
+    @endauth
 
 </div>

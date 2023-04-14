@@ -45,4 +45,10 @@ class Discussion extends Model
     {
         return $this->belongsToMany(config('discussions.user.namespace'), 'discussion_post_users', 'discussion_post_id', 'user_id');
     }
+
+    public function avatar()
+    {
+        return $this->belongsTo(Models::className(Avatar::class), 'avatar_id');
+    }
+
 }

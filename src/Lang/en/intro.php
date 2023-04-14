@@ -33,6 +33,6 @@ return [
 
     'headline'      => 'Welcome to Foundation Discussions!',
     'description'   => 'A simple forum package for your Laravel app.',
-    'please_login'  => 'Please <a href="/login" class="underline">login</a> or <a href="/register" class="underline">register</a> to create a new discussion',
+    'please_login'  => 'Please <a href="/login" class="underline">login</a> or <a href="/register" class="underline">register</a> to join the conversation',
 
 ];
