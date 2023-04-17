@@ -99,3 +99,29 @@ test('edit_delete_posts_as_another_user', function () {
         ->call('delete', $answer->id)
         ->assertSee('Test first post answer');
 });
+
+// Test the toggleNotification method on the Discussion component
+test('toggle_notification', function () {
+    $user = user('test1');
+
+    $this->actingAs($user);
+
+    livewire(Discussions::class, ['user' => $user])
+        ->set('title', 'Test first post')
+        ->set('content', 'Test first post')
+        ->call('createDiscussion')
+        ->assertSee('Discussion created successfully.');
+    $discussion = DiscussionModel::where('title', 'Test first post')->first();
+
+    livewire(Discussion::class, ['discussion_slug' => $discussion->slug])
+        ->assertSee('Test first post')
+        ->assertSee('Test first post');
+
+    livewire(Discussion::class, ['discussion_slug' => $discussion->slug])
+        ->call('toggleNotification')
+        ->assertSee('You will now receive notifications for this discussion.');
+
+    livewire(Discussion::class, ['discussion_slug' => $discussion->slug])
+        ->call('toggleNotification')
+        ->assertSee('You will no longer recieve notifications for this discussion.');
+});

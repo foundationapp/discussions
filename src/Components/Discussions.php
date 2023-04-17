@@ -13,7 +13,7 @@ class Discussions extends Component
     public $content;
     public $search;
     public $sortOrder = 'desc';
-    public $category_id;
+    public $category_slug;
     public $loadMore = 5;
 
     public function loadMore()
@@ -46,7 +46,7 @@ class Discussions extends Component
 
         $discussion = Discussion::create([
             'title' => $this->title,
-            'category_id' => $this->category_id,
+            'category_slug' => $this->category_slug,
             'content' => $this->content,
             'slug' => $slug,
             'user_id' => auth()->user()->id,
@@ -80,6 +80,14 @@ class Discussions extends Component
             return;
         }
         $this->sortOrder = $order;
+    }
+
+    public function setCategory($slug)
+    {
+        if (!array_key_exists($slug, config('discussions.categories'))) {
+            $this->category_slug = null;
+        }
+        $this->category_slug = $slug;
     }
 
     public function render()

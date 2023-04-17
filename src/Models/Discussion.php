@@ -11,7 +11,7 @@ class Discussion extends Model
 
     protected $table = 'discussions';
     public $timestamps = true;
-    protected $fillable = ['title', 'content', 'category_id', 'user_id', 'slug', 'color'];
+    protected $fillable = ['title', 'content', 'category_slug', 'user_id', 'slug', 'color'];
     protected $dates = ['deleted_at', 'last_reply_at'];
 
     public function user()
@@ -50,5 +50,4 @@ class Discussion extends Model
     {
         return $this->belongsTo(Models::className(Avatar::class), 'avatar_id');
     }
-
 }
