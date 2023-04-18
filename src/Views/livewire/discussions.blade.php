@@ -91,8 +91,8 @@
                 
                 class="relative bottom-0 w-full bg-white border border-b-0 border-gray-300 rounded-t-xl shadow-3xl" x-cloak
                 >
-                <div class="flex items-start p-5 space-x-3">
-                    @include('discussions::partials.discussion-avatar', ['user' => auth()->user(), 'size' => 'lg'])
+                <div class="flex items-start p-5 space-x-1">
+                    @include('discussions::partials.discussion-avatar', ['user' => auth()->user()])
                     <div class="relative flex flex-col w-full">
                         <div class="pr-10">
                             <input wire:model="title" type="text" placeholder="@lang('discussions::messages.editor.title')" class="w-full py-2 pr-3 font-medium border-0 focus:ring-0 focus:outline-none">
