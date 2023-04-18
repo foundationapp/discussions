@@ -81,7 +81,7 @@ class Posts extends Component
 
     public function render()
     {
-        $posts = Models::post()->where('discussion_id', $this->discussion->id)->orderBy('created_at', 'desc')->paginate($this->loadMore);
+        $posts = Models::post()->where('discussion_id', $this->discussion->id)->orderBy('created_at', 'asc')->paginate($this->loadMore);
 
         return view('discussions::livewire.posts', compact('posts'));
     }
