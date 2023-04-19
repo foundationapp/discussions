@@ -2,14 +2,9 @@
     <discussion-content-top>
         <div class="relative mb-5 space-y-2">
             <h1 class="text-4xl font-bold tracking-tighter">{{ $this->discussion->title }}</h1>
-<<<<<<< HEAD
             <div class="flex items-center justify-between w-full h-auto pb-3">
-                <a href="{{ route('discussions') }}" class="relative inline-block w-auto text-sm font-medium opacity-50 cursor-pointer hover:opacity-100 group">
-=======
-            <div class="flex items-center justify-between w-full h-auto">
                 <a href="{{ route('discussions') }}"
                     class="relative inline-block w-auto text-sm font-medium opacity-50 cursor-pointer hover:opacity-100 group">
->>>>>>> 153a0f1 (Add initial categories work)
                     <span>&larr; back to all {{ strtolower(trans('discussions::intro.titles.discussions')) }}</span>
                     <span
                         class="absolute bottom-0 left-0 w-0 h-px duration-200 ease-out bg-gray-900 group-hover:w-full"></span>
@@ -40,44 +35,36 @@
                             class="px-4 py-2 text-white bg-gray-300 rounded">@lang('discussions::messages.words.cancel')</button>
                     </div>
                 @else
-<<<<<<< HEAD
-                
-                    <div class="p-5 border border-neutral-200 @if(config("discussions.styles.rounded") == 'rounded-full'){{ 'rounded-xl' }}@else{{ config("discussions.styles.rounded") }}@endif">
-                        <div class="flex items-center mb-5 space-x-2">
-                            <a href="{{ $this->discussion->user->profile_url }}" class="flex items-center space-x-2 text-sm font-bold group">
-                                @include('discussions::partials.discussion-avatar', ['user' => $this->discussion->user, 'size' => 'sm'])
-                                <span class="group group-hover:text-blue-500 group-hover:underline">{{ $this->discussion->user->name }}</span>
-=======
                     <div
-                        class="py-4 px-5 border border-neutral-200 @if (config('discussions.styles.rounded') == 'rounded-full') {{ 'rounded-xl' }}@else{{ config('discussions.styles.rounded') }} @endif">
-                        <div class="flex items-center mb-3 space-x-2">
+                        class="p-5 border border-neutral-200 @if (config('discussions.styles.rounded') == 'rounded-full') {{ 'rounded-xl' }}@else{{ config('discussions.styles.rounded') }} @endif">
+                        <div class="flex items-center mb-5 space-x-2">
                             <a href="{{ $this->discussion->user->profile_url }}"
                                 class="flex items-center space-x-2 text-sm font-bold group">
                                 @include('discussions::partials.discussion-avatar', [
                                     'user' => $this->discussion->user,
+                                    'size' => 'sm',
                                 ])
                                 <span
                                     class="group group-hover:text-blue-500 group-hover:underline">{{ $this->discussion->user->name }}</span>
->>>>>>> 153a0f1 (Add initial categories work)
                             </a>
                             <p class="text-xs text-gray-500">on {{ $this->discussion->created_at->format('F jS, Y') }}
                             </p>
                         </div>
                         <dicussion-post class="mb-2 prose-sm prose text-gray-500">
                             {!! Str::markdown($this->discussion->content) !!}
-                        </discussion-post>
-                        @auth
-                            <div class="flex justify-end mr-auto space-x-2 text-sm">
-                                <button wire:click="deleteDiscussion"
-                                    class="font-medium text-neutral-500 hover:text-orange-400 hover:underline">@lang('discussions::messages.words.report')</button>
-                                @if (auth()->user()->id == $this->discussion->user_id)
-                                    <button wire:click="editDiscussion"
-                                        class="font-medium text-neutral-500 hover:text-blue-500 hover:underline">@lang('discussions::messages.words.edit')</button>
+                            </discussion-post>
+                            @auth
+                                <div class="flex justify-end mr-auto space-x-2 text-sm">
                                     <button wire:click="deleteDiscussion"
-                                        class="font-medium text-neutral-500 hover:text-red-500 hover:underline">@lang('discussions::messages.words.delete')</button>
-                                @endif
-                            </div>
-                        @endauth
+                                        class="font-medium text-neutral-500 hover:text-orange-400 hover:underline">@lang('discussions::messages.words.report')</button>
+                                    @if (auth()->user()->id == $this->discussion->user_id)
+                                        <button wire:click="editDiscussion"
+                                            class="font-medium text-neutral-500 hover:text-blue-500 hover:underline">@lang('discussions::messages.words.edit')</button>
+                                        <button wire:click="deleteDiscussion"
+                                            class="font-medium text-neutral-500 hover:text-red-500 hover:underline">@lang('discussions::messages.words.delete')</button>
+                                    @endif
+                                </div>
+                            @endauth
                     </div>
                 @endif
             </div>
