@@ -32,6 +32,21 @@ class TestCase extends Orchestra
         ]);
 
         $app['config']->set('discussions.user.namespace', 'FoundationApp\Discussions\Models\User');
+
+        $app['config']->set('discussions.categories', [
+            'general' => [
+                'title' => 'General',
+                'icon' => 'fas fa-comment',
+            ],
+            'bug' => [
+                'title' => 'Bug',
+                'icon' => 'fas fa-bug',
+            ],
+            'feature' => [
+                'title' => 'Feature',
+                'icon' => 'fas fa-lightbulb',
+            ],
+        ]);
     }
 
 

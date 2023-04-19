@@ -13,8 +13,14 @@ class Discussions extends Component
     public $content;
     public $search;
     public $sortOrder = 'desc';
-    public $category_id;
+    public $category_slug;
+    public $category;
     public $loadMore = 5;
+
+    public function mount($category = null)
+    {
+        $this->category = $category;
+    }
 
     public function loadMore()
     {
@@ -46,7 +52,7 @@ class Discussions extends Component
 
         $discussion = Discussion::create([
             'title' => $this->title,
-            'category_id' => $this->category_id,
+            'category_slug' => $this->category_slug,
             'content' => $this->content,
             'slug' => $slug,
             'user_id' => auth()->user()->id,
@@ -82,10 +88,24 @@ class Discussions extends Component
         $this->sortOrder = $order;
     }
 
+    public function setCategory($slug)
+    {
+        if (!array_key_exists($slug, config('discussions.categories'))) {
+            $this->category_slug = null;
+        }
+        $this->category_slug = $slug;
+    }
+
     public function render()
     {
-        $discussions = Discussion::where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('content', 'like', '%' . $this->search . '%')
+        $discussions = Discussion::query()
+            ->where(function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->category, function ($query) {
+                return $query->where('category_slug', $this->category);
+            })
             ->orderBy('created_at', $this->sortOrder)
             ->with('users')
             ->paginate($this->loadMore);
