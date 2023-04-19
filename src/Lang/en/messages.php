@@ -16,11 +16,12 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'New ' . trans('discussions::intro.titles.discussion'),
-        'all'          => 'All ' . trans('discussions::intro.titles.discussion'),
-        'posted_by'    => 'Posted by',
-        'head_details' => 'Posted in Category',
-        'load_more'    => 'Load More',
+        'new'            => 'New ' . trans('discussions::intro.titles.discussion'),
+        'all'            => 'All ' . trans('discussions::intro.titles.discussion'),
+        'posted_by'      => 'Posted by',
+        'head_details'   => 'Posted in Category',
+        'no_discussions' => 'No discussions found',
+        'load_more'      => 'Load More',
 
     ],
     'response' => [

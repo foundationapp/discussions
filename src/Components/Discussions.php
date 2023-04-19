@@ -14,7 +14,13 @@ class Discussions extends Component
     public $search;
     public $sortOrder = 'desc';
     public $category_slug;
+    public $category;
     public $loadMore = 5;
+
+    public function mount($category = null)
+    {
+        $this->category = $category;
+    }
 
     public function loadMore()
     {
@@ -92,8 +98,14 @@ class Discussions extends Component
 
     public function render()
     {
-        $discussions = Discussion::where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('content', 'like', '%' . $this->search . '%')
+        $discussions = Discussion::query()
+            ->where(function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->category, function ($query) {
+                return $query->where('category_slug', $this->category);
+            })
             ->orderBy('created_at', $this->sortOrder)
             ->with('users')
             ->paginate($this->loadMore);

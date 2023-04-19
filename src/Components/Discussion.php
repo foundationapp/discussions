@@ -13,7 +13,6 @@ class Discussion extends Component
     public $slug;
     public $comment;
     public $discussion_slug;
-    public $category_id;
     public $editing = false;
     public $editingTitle;
     public $editingContent;

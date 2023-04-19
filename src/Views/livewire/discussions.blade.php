@@ -68,7 +68,7 @@
                 @include('discussions::partials.categories')
             @endif
             <div class="w-full space-y-2">
-                @foreach ($discussions as $discussion)
+                @forelse ($discussions as $discussion)
                     @if (!$loop->first)
                         <div class="w-full h-px bg-gray-200"></div>
                     @endif
@@ -83,7 +83,11 @@
                             </p>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="flex justify-center">
+                        <p class="text-gray-500">@lang('discussions::messages.discussion.no_discussions')</p>
+                    </div>
+                @endforelse
                 @if ($discussions->hasMorePages())
                     <div class="flex justify-center">
                         <button wire:click="loadMore"
@@ -134,7 +138,7 @@
                         <button @click="dropdownOpen = !dropdownOpen"
                             class="flex items-center px-4 py-2 space-x-1 font-medium text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200/60">
                             @if ($category_slug)
-                                <span>{{ $category_slug }}</span>
+                                <span>{{ FoundationApp\Discussions\Helpers\Category::name($category_slug) }}</span>
                             @else
                                 <span>Select a Category</span>
                             @endif
@@ -153,7 +157,7 @@
                                     <button wire:click="setCategory('{{ $index }}')"
                                         @click="dropdownOpen = !dropdownOpen"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem">{{ $category['icon'] . ' ' . $category['title'] }}</button>
+                                        role="menuitem">{{ FoundationApp\Discussions\Helpers\Category::name($index) }}</button>
                                 @endforeach
                             </div>
                         </div>
