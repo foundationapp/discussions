@@ -107,22 +107,10 @@
             x-transition:leave-end="translate-y-full" @discussion-new-open.window="open = true"
             class="fixed bottom-0 flex items-center justify-end w-full {{ config('discussions.styles.container_max_width') }} mx-auto">
             <div class="flex-shrink-0 mr-4 bg-transparent {{ config('discussions.styles.sidebar_width') }}"></div>
-<<<<<<< HEAD
-            <div 
-                
-                class="relative bottom-0 w-full bg-white border border-b-0 border-gray-300 rounded-t-xl shadow-3xl" x-cloak
-                >
-                <div class="flex items-start p-5 space-x-1">
-                    @include('discussions::partials.discussion-avatar', ['user' => auth()->user()])
-=======
             <div class="relative bottom-0 w-full bg-white border border-b-0 border-gray-300 rounded-t-xl shadow-3xl"
                 x-cloak>
-                <div class="flex items-start p-5 space-x-3">
-                    @include('discussions::partials.discussion-avatar', [
-                        'user' => auth()->user(),
-                        'size' => 'lg',
-                    ])
->>>>>>> 153a0f1 (Add initial categories work)
+                <div class="flex items-start p-5 space-x-1">
+                    @include('discussions::partials.discussion-avatar', ['user' => auth()->user()])
                     <div class="relative flex flex-col w-full">
                         <div class="pr-10">
                             <input wire:model="title" type="text" placeholder="@lang('discussions::messages.editor.title')"

@@ -16,6 +16,7 @@ class Discussion extends Component
     public $editing = false;
     public $editingTitle;
     public $editingContent;
+    public $subscribers;
 
     protected function getListeners()
     {
@@ -24,15 +25,15 @@ class Discussion extends Component
         ];
     }
 
-
     public function mount($discussion_slug)
     {
         $this->discussion_slug = $discussion_slug;
+        $this->getSubscribers();
     }
 
     public function getDiscussionProperty()
     {
-        return Models::discussion()->where('slug', $this->discussion_slug)->first();
+        return Models::discussion()->where('slug', $this->discussion_slug)->firstOrFail();
     }
 
     public function answer()
@@ -126,8 +127,14 @@ class Discussion extends Component
             return;
         }
         $this->discussion->users()->attach(auth()->user()->id);
+        $this->getSubscribers();
         session()->flash('message', trans('discussions::alert.success.reason.subscribed_to_discussion'));
         return;
+    }
+
+    public function getSubscribers()
+    {
+        $this->subscribers = $this->discussion->users()->get();
     }
 
     public function render()

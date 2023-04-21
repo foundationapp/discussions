@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('discussion_post_users', function (Blueprint $table) {
+        Schema::create('discussions_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('discussion_post_id');
-            $table->foreign('discussion_post_id')->references('id')->on('discussion_posts')->onDelete('cascade');
+            $table->unsignedBigInteger('discussion_id');
+            $table->foreign('discussion_id')->references('id')->on('discussions')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('read')->default(false);

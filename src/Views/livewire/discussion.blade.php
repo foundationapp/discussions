@@ -90,7 +90,17 @@
                     {{ FoundationApp\Discussions\Helpers\Category::name($this->discussion->category_slug) }}</p>
                 <hr />
                 <h3 class="mt-5 font-semibold text-neutral-500">Participants</h3>
-                <p class="my-2 text-xs opacity-60">show participants</p>
+                <div>
+                    @foreach ($subscribers as $user)
+                        <a href="{{ $user->profile_url }}" class="flex items-center space-x-2">
+                            @include('discussions::partials.discussion-avatar', [
+                                'user' => $user,
+                                'size' => 'sm',
+                            ])
+                            <span>{{ $user->name }}</span>
+                        </a>
+                    @endforeach
+                </div>
                 <hr />
                 @auth
                     <h3 class="mt-5 font-semibold text-neutral-500">Notifications</h3>
