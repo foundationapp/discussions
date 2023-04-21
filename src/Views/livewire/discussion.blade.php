@@ -87,7 +87,7 @@
             <discussion-content-right class="{{ config('discussions.styles.sidebar_width') }} flex-shrink-0 text-sm ml-8">
                 <h3 class="font-semibold text-neutral-500">Category</h3>
                 <p class="my-2 text-xs opacity-60">
-                    {{ FoundationApp\Discussions\Helpers\Category::name($this->discussion->category_slug) }}</p>
+                    {{ Foundationapp\Discussions\Helpers\Category::name($this->discussion->category_slug) }}</p>
                 <hr />
                 <h3 class="mt-5 font-semibold text-neutral-500">Participants</h3>
                 <div>

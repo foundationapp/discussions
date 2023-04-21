@@ -1,8 +1,8 @@
 <?php
 
-namespace FoundationApp\Discussions\Components;
+namespace Foundationapp\Discussions\Components;
 
-use FoundationApp\Discussions\Models\Models;
+use Foundationapp\Discussions\Models\Models;
 use Illuminate\Support\Str;
 use Livewire\Component;
 

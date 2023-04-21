@@ -1,6 +1,6 @@
 <?php
 
-namespace FoundationApp\Discussions\Models;
+namespace Foundationapp\Discussions\Models;
 
 use Illuminate\Foundation\Auth\User as BaseUser;
 

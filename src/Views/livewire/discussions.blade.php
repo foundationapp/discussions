@@ -126,7 +126,7 @@
                         <button @click="dropdownOpen = !dropdownOpen"
                             class="flex items-center px-4 py-2 space-x-1 font-medium text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200/60">
                             @if ($category_slug)
-                                <span>{{ FoundationApp\Discussions\Helpers\Category::name($category_slug) }}</span>
+                                <span>{{ Foundationapp\Discussions\Helpers\Category::name($category_slug) }}</span>
                             @else
                                 <span>Select a Category</span>
                             @endif
@@ -145,7 +145,7 @@
                                     <button wire:click="setCategory('{{ $index }}')"
                                         @click="dropdownOpen = !dropdownOpen"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem">{{ FoundationApp\Discussions\Helpers\Category::name($index) }}</button>
+                                        role="menuitem">{{ Foundationapp\Discussions\Helpers\Category::name($index) }}</button>
                                 @endforeach
                             </div>
                         </div>

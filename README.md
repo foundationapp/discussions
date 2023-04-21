@@ -8,8 +8,8 @@ The events are useful when you want to perform additional actions or trigger cus
 
 | Event                                                       | Description                                       |
 | ----------------------------------------------------------- | ------------------------------------------------- |
-| `FoundationApp\Discussions\Events\NewDiscussionCreated`     | Dispatched when a new discussion is created.      |
-| `FoundationApp\Discussions\Events\NewDiscussionPostCreated` | Dispatched when a new discussion post is created. |
+| `Foundationapp\Discussions\Events\NewDiscussionCreated`     | Dispatched when a new discussion is created.      |
+| `Foundationapp\Discussions\Events\NewDiscussionPostCreated` | Dispatched when a new discussion post is created. |
 
 #### Events Usage
 
@@ -26,7 +26,7 @@ To create a listener to handle the `NewDiscussionCreated` event, follow these st
    <?php
    namespace App\Listeners;
 
-   use FoundationApp\Discussions\Events\NewDiscussionCreated;
+   use Foundationapp\Discussions\Events\NewDiscussionCreated;
 
    class CustomNewDiscussionListener
    {
@@ -66,7 +66,7 @@ To create a listener to handle the `NewDiscussionCreated` event, follow these st
    <?php
    namespace App\Listeners;
 
-   use FoundationApp\Discussions\Events\NewDiscussionCreated;
+   use Foundationapp\Discussions\Events\NewDiscussionCreated;
    use Illuminate\Contracts\Queue\ShouldQueue;
    use Illuminate\Queue\InteractsWithQueue;
 
