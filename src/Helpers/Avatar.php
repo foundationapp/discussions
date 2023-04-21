@@ -1,8 +1,9 @@
 <?php
 
-namespace FoundationApp\Discussions\Helpers;
+namespace Foundationapp\Discussions\Helpers;
 
-class Avatar {
+class Avatar
+{
     /**
      * Convert any string to a color code.
      *
@@ -24,7 +25,8 @@ class Avatar {
      *
      * @return string
      */
-    public static function getInitials($name){
+    public static function getInitials($name)
+    {
         $initials = '';
         $words = explode(' ', $name);
         foreach ($words as $w) {
@@ -33,5 +35,4 @@ class Avatar {
 
         return strtoupper($initials);
     }
-
 }

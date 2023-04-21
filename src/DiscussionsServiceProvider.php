@@ -1,6 +1,6 @@
 <?php
 
-namespace FoundationApp\Discussions;
+namespace Foundationapp\Discussions;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -37,9 +37,9 @@ class DiscussionsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
 
-        Livewire::component('discussion', \FoundationApp\Discussions\Components\Discussion::class);
-        Livewire::component('discussions', \FoundationApp\Discussions\Components\Discussions::class);
-        Livewire::component('posts', \FoundationApp\Discussions\Components\Posts::class);
+        Livewire::component('discussion', \Foundationapp\Discussions\Components\Discussion::class);
+        Livewire::component('discussions', \Foundationapp\Discussions\Components\Discussions::class);
+        Livewire::component('posts', \Foundationapp\Discussions\Components\Posts::class);
     }
 
     /**

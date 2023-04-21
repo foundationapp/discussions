@@ -1,9 +1,9 @@
 <?php
 
-namespace FoundationApp\Discussions\Components;
+namespace Foundationapp\Discussions\Components;
 
-use FoundationApp\Discussions\Events\NewDiscussionCreated;
-use FoundationApp\Discussions\Models\Discussion;
+use Foundationapp\Discussions\Events\NewDiscussionCreated;
+use Foundationapp\Discussions\Models\Discussion;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
