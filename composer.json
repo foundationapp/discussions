@@ -3,12 +3,12 @@
   "description": "Discussions is a Simple Laravel Discussions Package",
   "autoload": {
     "psr-4": {
-      "Foundationapp\\Discussions\\": "src/"
+      "FoundationApp\\Discussions\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Foundationapp\\Discussions\\Tests\\": "tests/"
+      "FoundationApp\\Discussions\\Tests\\": "tests/"
     }
   },
   "authors": [
@@ -20,7 +20,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Foundationapp\\Discussions\\DiscussionsServiceProvider"
+        "FoundationApp\\Discussions\\DiscussionsServiceProvider"
       ]
     }
   },
@@ -36,6 +36,7 @@
     }
   },
   "require": {
-    "livewire/livewire": "^2.12"
+    "livewire/livewire": "^2.12",
+    "filament/notifications" : "^2.0"
   }
 }

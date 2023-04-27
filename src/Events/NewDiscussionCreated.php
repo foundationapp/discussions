@@ -1,6 +1,6 @@
 <?php
 
-namespace Foundationapp\Discussions\Events;
+namespace FoundationApp\Discussions\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Foundationapp\Discussions\Tests;
+namespace FoundationApp\Discussions\Tests;
 
-use Foundationapp\Discussions\DiscussionsServiceProvider;
+use FoundationApp\Discussions\DiscussionsServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -31,7 +31,7 @@ class TestCase extends Orchestra
             'prefix'   => '',
         ]);
 
-        $app['config']->set('discussions.user.namespace', 'Foundationapp\Discussions\Models\User');
+        $app['config']->set('discussions.user.namespace', 'FoundationApp\Discussions\Models\User');
 
         $app['config']->set('discussions.categories', [
             'general' => [

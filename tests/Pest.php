@@ -1,6 +1,6 @@
 <?php
 
-use \Foundationapp\Discussions\Tests\TestCase;
+use \FoundationApp\Discussions\Tests\TestCase;
 //use Tests\Traits\RecursiveRefreshDatabase as RefreshDatabase;
 
 /*
@@ -14,7 +14,7 @@ use \Foundationapp\Discussions\Tests\TestCase;
 |
 */
 
-// uses(Foundationapp\Discussions\Tests\TestCase::class, RefreshDatabase::class)->in('Feature');
+// uses(FoundationApp\Discussions\Tests\TestCase::class, RefreshDatabase::class)->in('Feature');
 
 uses(TestCase::class)->in('Feature');
 
@@ -46,7 +46,7 @@ expect()->extend('toBeOne', function () {
 
 function user($name)
 {
-    $user = new Foundationapp\Discussions\Models\User();
+    $user = new FoundationApp\Discussions\Models\User();
     $user->name = $name;
     $user->email = $name . '@test.com';
     $user->password = 'test';

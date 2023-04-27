@@ -1,6 +1,6 @@
 <?php
 
-namespace Foundationapp\Discussions\Helpers;
+namespace FoundationApp\Discussions\Helpers;
 
 
 class Category

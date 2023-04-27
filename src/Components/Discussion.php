@@ -1,11 +1,13 @@
 <?php
 
-namespace Foundationapp\Discussions\Components;
+namespace FoundationApp\Discussions\Components;
 
-use Foundationapp\Discussions\Events\NewDiscussionPostCreated;
-use Foundationapp\Discussions\Models\Models;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use Filament\Notifications\Notification; 
+use FoundationApp\Discussions\Models\Models;
+use FoundationApp\Discussions\Events\NewDiscussionPostCreated;
 
 class Discussion extends Component
 {
@@ -17,6 +19,10 @@ class Discussion extends Component
     public $editingTitle;
     public $editingContent;
     public $subscribers;
+
+    public $rules = [
+        'comment' => 'required|min:6'
+    ];
 
     protected function getListeners()
     {
@@ -38,9 +44,17 @@ class Discussion extends Component
 
     public function answer()
     {
-        $this->validate([
-            'comment' => 'required|min:6',
-        ]);
+        $validator = Validator::make($this->getDataForValidation($this->rules), $this->rules);
+        
+        if($validator->fails()) {
+
+            Notification::make() 
+                ->title('Validation error')
+                ->danger()
+                ->body( $validator->errors()->first() )
+                ->send(); 
+            return;
+        }
 
         if ($this->checkTimeBetweenPosts() === false) {
             return;

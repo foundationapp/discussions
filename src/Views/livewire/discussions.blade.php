@@ -121,12 +121,12 @@
                     </div>
                 </div>
                 <div
-                    class="flex items-center justify-between px-5 pt-4 pb-3 text-xs font-semibold border-t border-gray-200 hover:text-gray-700 relative">
+                    class="relative flex items-center justify-between px-5 pt-4 pb-3 text-xs font-semibold border-t border-gray-200 hover:text-gray-700">
                     <div x-data="{ dropdownOpen: false }" @click.away="dropdownOpen = false">
                         <button @click="dropdownOpen = !dropdownOpen"
                             class="flex items-center px-4 py-2 space-x-1 font-medium text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200/60">
                             @if ($category_slug)
-                                <span>{{ Foundationapp\Discussions\Helpers\Category::name($category_slug) }}</span>
+                                <span>{{ FoundationApp\Discussions\Helpers\Category::name($category_slug) }}</span>
                             @else
                                 <span>Select a Category</span>
                             @endif
@@ -138,14 +138,14 @@
                             </svg>
                         </button>
                         <div x-show="dropdownOpen"
-                            class="absolute bottom-full w-48 mb-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            class="absolute w-48 mb-2 bg-white rounded-md shadow-lg bottom-full ring-1 ring-black ring-opacity-5">
                             <div class="py-1" role="menu" aria-orientation="vertical"
                                 aria-labelledby="options-menu">
                                 @foreach (config('discussions.categories') as $index => $category)
                                     <button wire:click="setCategory('{{ $index }}')"
                                         @click="dropdownOpen = !dropdownOpen"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem">{{ Foundationapp\Discussions\Helpers\Category::name($index) }}</button>
+                                        role="menuitem">{{ FoundationApp\Discussions\Helpers\Category::name($index) }}</button>
                                 @endforeach
                             </div>
                         </div>

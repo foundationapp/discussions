@@ -20,7 +20,6 @@
     </discussion-content-top>
     <div class="flex items-start w-full">
 
-
         <discussion-content-left class="relative w-full">
             <div class="mb-4 space-y-4">
                 @if ($editing)
@@ -87,7 +86,7 @@
             <discussion-content-right class="{{ config('discussions.styles.sidebar_width') }} flex-shrink-0 text-sm ml-8">
                 <h3 class="font-semibold text-neutral-500">Category</h3>
                 <p class="my-2 text-xs opacity-60">
-                    {{ Foundationapp\Discussions\Helpers\Category::name($this->discussion->category_slug) }}</p>
+                    {{ FoundationApp\Discussions\Helpers\Category::name($this->discussion->category_slug) }}</p>
                 <hr />
                 <h3 class="mt-5 font-semibold text-neutral-500">Participants</h3>
                 <div>
