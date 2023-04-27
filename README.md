@@ -8,7 +8,7 @@ This package assumes that you have created a [new Laravel application](https://l
 
 In this package we also make use of the [Filament Notifications package](https://filamentphp.com/docs/notifications/installation), which is used to show alert notifications.
 
-![Notification Animated GIF](/assets/img/notification.gif)
+![Notification Animated GIF](/assets/img/notifications.gif)
 
 
 To [install this package](https://filamentphp.com/docs/notifications/installation): we can do the following:
