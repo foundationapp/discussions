@@ -43,7 +43,7 @@ class Discussion extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('discussions.user.namespace'), 'discussion_post_users', 'user_id', 'id');
+        return $this->belongsToMany(config('discussions.user.namespace'), 'discussion_post_users', 'discussion_post_id', 'user_id');
     }
 
     public function avatar()
