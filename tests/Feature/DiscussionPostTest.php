@@ -2,10 +2,10 @@
 
 use function Pest\Livewire\livewire;
 
-use Foundationapp\Discussions\Models\Discussion as DiscussionModel;
-use Foundationapp\Discussions\Components\Discussion;
-use Foundationapp\Discussions\Components\Discussions;
-use Foundationapp\Discussions\Components\Posts;
+use FoundationApp\Discussions\Models\Discussion as DiscussionModel;
+use FoundationApp\Discussions\Components\Discussion;
+use FoundationApp\Discussions\Components\Discussions;
+use FoundationApp\Discussions\Components\Posts;
 
 test('list_and_create_discussion_posts', function () {
     $user = user('test1');

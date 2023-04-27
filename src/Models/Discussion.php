@@ -1,6 +1,6 @@
 <?php
 
-namespace Foundationapp\Discussions\Models;
+namespace FoundationApp\Discussions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -43,7 +43,7 @@ class Discussion extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('discussions.user.namespace'), 'discussions_users', 'discussion_id', 'user_id');
+        return $this->belongsToMany(config('discussions.user.namespace'), 'discussion_post_users', 'user_id', 'id');
     }
 
     public function avatar()

@@ -2,9 +2,9 @@
 
 use function Pest\Livewire\livewire;
 
-use Foundationapp\Discussions\Models\Discussion as DiscussionModel;
-use Foundationapp\Discussions\Components\Discussion;
-use Foundationapp\Discussions\Components\Discussions;
+use FoundationApp\Discussions\Models\Discussion as DiscussionModel;
+use FoundationApp\Discussions\Components\Discussion;
+use FoundationApp\Discussions\Components\Discussions;
 
 test('list_discussions', function () {
     livewire(Discussions::class)

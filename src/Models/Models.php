@@ -1,6 +1,6 @@
 <?php
 
-namespace Foundationapp\Discussions\Models;
+namespace FoundationApp\Discussions\Models;
 
 class Models
 {
@@ -52,7 +52,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Foundationapp\Discussions\Models\Category
+     * @return \FoundationApp\Discussions\Models\Category
      */
     public static function category(array $attributes = [])
     {
@@ -64,7 +64,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Foundationapp\Discussions\Models\Discussion
+     * @return \FoundationApp\Discussions\Models\Discussion
      */
     public static function discussion(array $attributes = [])
     {
@@ -76,7 +76,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Foundationapp\Discussions\Models\Post
+     * @return \FoundationApp\Discussions\Models\Post
      */
     public static function post(array $attributes = [])
     {
