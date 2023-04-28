@@ -1,6 +1,6 @@
 <?php
 
-namespace FoundationApp\Discussions\Helpers;
+namespace Foundationapp\Discussions\Helpers;
 
 class Avatar
 {

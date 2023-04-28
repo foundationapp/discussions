@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discussion_post_users');
+        Schema::dropIfExists('discussions_users');
     }
 };

@@ -14,13 +14,13 @@ class DiscussionPostUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('discussion_post_users')->delete();
-        
-        \DB::table('discussion_post_users')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('discussions_users')->delete();
+
+        \DB::table('discussions_users')->insert(array(
+            0 =>
+            array(
                 'created_at' => '2023-04-27 12:24:06',
                 'discussion_post_id' => 1,
                 'id' => 1,
@@ -28,8 +28,8 @@ class DiscussionPostUsersTableSeeder extends Seeder
                 'updated_at' => '2023-04-27 12:24:06',
                 'user_id' => 1,
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'created_at' => NULL,
                 'discussion_post_id' => 3,
                 'id' => 2,
@@ -38,7 +38,5 @@ class DiscussionPostUsersTableSeeder extends Seeder
                 'user_id' => 3,
             ),
         ));
-        
-        
     }
 }

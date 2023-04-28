@@ -1,13 +1,13 @@
 <?php
 
-namespace FoundationApp\Discussions\Components;
+namespace Foundationapp\Discussions\Components;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use Filament\Notifications\Notification; 
-use FoundationApp\Discussions\Models\Models;
-use FoundationApp\Discussions\Events\NewDiscussionPostCreated;
+use Filament\Notifications\Notification;
+use Foundationapp\Discussions\Models\Models;
+use Foundationapp\Discussions\Events\NewDiscussionPostCreated;
 
 class Discussion extends Component
 {
@@ -45,14 +45,14 @@ class Discussion extends Component
     public function answer()
     {
         $validator = Validator::make($this->getDataForValidation($this->rules), $this->rules);
-        
-        if($validator->fails()) {
 
-            Notification::make() 
+        if ($validator->fails()) {
+
+            Notification::make()
                 ->title('Validation error')
                 ->danger()
-                ->body( $validator->errors()->first() )
-                ->send(); 
+                ->body($validator->errors()->first())
+                ->send();
             return;
         }
 
