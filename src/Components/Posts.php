@@ -1,9 +1,8 @@
 <?php
 
-namespace FoundationApp\Discussions\Components;
+namespace Foundationapp\Discussions\Components;
 
-use FoundationApp\Discussions\Models\Models;
-use Illuminate\Support\Str;
+use Foundationapp\Discussions\Models\Models;
 use Livewire\Component;
 
 class Posts extends Component

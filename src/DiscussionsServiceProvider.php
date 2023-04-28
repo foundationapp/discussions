@@ -1,6 +1,6 @@
 <?php
 
-namespace FoundationApp\Discussions;
+namespace Foundationapp\Discussions;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -15,6 +15,7 @@ class DiscussionsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadTranslationsFrom(__DIR__ . '/Lang', 'discussions');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->publishes([
             __DIR__ . '/../public/assets' => public_path('vendor/foundationapp/discussions/assets'),
         ], 'discussions_assets');
@@ -28,8 +29,8 @@ class DiscussionsServiceProvider extends ServiceProvider
         ], 'discussions_migrations');
 
         $this->publishes([
-            __DIR__ . '/../database/seeds/' => database_path('seeds'),
-        ], 'discussions_seeds');
+            __DIR__ . '/../database/seeders/' => database_path('seeders'),
+        ], 'discussions_seeders');
 
         $this->publishes([
             __DIR__ . '/Lang' => resource_path('lang/vendor/discussions'),
@@ -37,9 +38,9 @@ class DiscussionsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
 
-        Livewire::component('discussion', \FoundationApp\Discussions\Components\Discussion::class);
-        Livewire::component('discussions', \FoundationApp\Discussions\Components\Discussions::class);
-        Livewire::component('posts', \FoundationApp\Discussions\Components\Posts::class);
+        Livewire::component('discussion', \Foundationapp\Discussions\Components\Discussion::class);
+        Livewire::component('discussions', \Foundationapp\Discussions\Components\Discussions::class);
+        Livewire::component('posts', \Foundationapp\Discussions\Components\Posts::class);
     }
 
     /**

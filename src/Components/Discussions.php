@@ -1,9 +1,9 @@
 <?php
 
-namespace FoundationApp\Discussions\Components;
+namespace Foundationapp\Discussions\Components;
 
-use FoundationApp\Discussions\Events\NewDiscussionCreated;
-use FoundationApp\Discussions\Models\Discussion;
+use Foundationapp\Discussions\Events\NewDiscussionCreated;
+use Foundationapp\Discussions\Models\Discussion;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -52,7 +52,7 @@ class Discussions extends Component
 
         $discussion = Discussion::create([
             'title' => $this->title,
-            'slug' => $this->category_slug,
+            'category_slug' => $this->category_slug,
             'content' => $this->content,
             'slug' => $slug,
             'user_id' => auth()->user()->id,
@@ -98,7 +98,7 @@ class Discussions extends Component
 
     public function render()
     {
-        
+
         $discussions = Discussion::query()
             ->where(function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
